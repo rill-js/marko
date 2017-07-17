@@ -1,0 +1,55 @@
+{
+  "name": "@rill/marko",
+  "description": "Marko views for Rill.",
+  "version": "1.0.0",
+  "author": "Dylan Piercey <pierceydylan@gmail.com>",
+  "browser": "client/index.js",
+  "bugs": "https://github.com/rill-js/marko/issues",
+  "dependencies": {
+    "combined-stream": "^1.0.5"
+  },
+  "devDependencies": {
+    "jsdom": "^11.1.0",
+    "jsdom-global": "^3.0.2",
+    "marko": "^4.4.18",
+    "mocha": "^3.4.2",
+    "rill": "^5.0.5",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.2",
+    "supertest": "^3.0.0"
+  },
+  "homepage": "https://github.com/rill-js/marko",
+  "keywords": [
+    "isomorphic",
+    "marko",
+    "render",
+    "rill",
+    "universal"
+  ],
+  "license": "MIT",
+  "main": "server/index.js",
+  "peerDependencies": {
+    "marko": "4.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rill-js/marko"
+  },
+  "scripts": {
+    "lint": "standard --verbose | snazzy",
+    "test": "npm run lint && mocha ./test/**/*.test.js"
+  },
+  "standard": {
+    "ignore": [
+      "*.marko.js"
+    ],
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach"
+    ]
+  }
+}
