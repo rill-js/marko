@@ -4,7 +4,7 @@
  * Creates a Rill middleware that renders a marko component.
  */
 module.exports = function markoMiddlewareSetup (template) {
-  return function markoMiddleware (ctx, next) {
+  return function markoMiddleware (ctx) {
     var req = ctx.req
     var res = ctx.res
     var locals = ctx.locals
@@ -14,7 +14,7 @@ module.exports = function markoMiddlewareSetup (template) {
     res.body = ' '
 
     return template(locals).then(function (result) {
-      result.prependTo(document.body)
+      result.replace(document.body.firstElementChild)
     })
   }
 }
