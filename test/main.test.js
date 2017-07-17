@@ -1,5 +1,5 @@
 'use strict'
-
+require('marko/compiler').configure({ writeToDisk: false })
 require('marko/node-require').install()
 
 var assert = require('assert')
