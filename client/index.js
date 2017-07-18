@@ -13,7 +13,7 @@ module.exports = function markoMiddlewareSetup (template) {
     res.set('Content-Type', 'text/html; charset=UTF-8')
     res.body = ' '
 
-    return template(locals).then(function (result) {
+    return template.render(locals).then(function (result) {
       result.replace(document.body.firstElementChild)
     })
   }
