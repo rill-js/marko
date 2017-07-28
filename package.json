@@ -11,9 +11,9 @@
   "devDependencies": {
     "jsdom": "^11.1.0",
     "jsdom-global": "^3.0.2",
-    "marko": "^4.4.18",
+    "marko": "^4.4.21",
     "mocha": "^3.4.2",
-    "rill": "^5.0.5",
+    "rill": "^5.0.9",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2",
     "supertest": "^3.0.0"
