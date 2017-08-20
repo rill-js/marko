@@ -1,7 +1,7 @@
 'use strict'
 
+var marko = require('marko/components')
 var activeTemplate = null
-var activeRender = null
 
 /**
  * Creates a Rill middleware that renders a marko component.
@@ -16,14 +16,20 @@ module.exports = function markoMiddlewareSetup (template) {
     res.set('Content-Type', 'text/html; charset=UTF-8')
     res.body = ' '
 
+    // Skip initial render.
+    if (!activeTemplate) {
+      marko.init()
+      activeTemplate = template
+      return
+    }
+
     // Update a component if it has already been rendered.
     if (activeTemplate === template) return rerender(locals)
 
     // Otherwise create a new component.
     return template.render(locals).then(function (result) {
-      result.replace(document.body.firstElementChild)
+      result.replace(getRoot())
       activeTemplate = template
-      activeRender = result
     })
   }
 }
@@ -33,11 +39,19 @@ module.exports = function markoMiddlewareSetup (template) {
  * @param {*} input - The new input for the component.
  */
 function rerender (input) {
-  var component = activeRender.getComponent()
+  var component = marko.getComponentForEl(getRoot())
   component.input = input
   component.___global = input.$global
   component.forceUpdate()
   return new Promise(function (resolve) {
     component.once('update', resolve)
   })
+}
+
+/**
+ * Getter for the root element for the page.
+ * @return {HTMLEntity}
+ */
+function getRoot () {
+  return document.body.firstElementChild
 }
