@@ -24,7 +24,13 @@ module.exports = function markoMiddlewareSetup (template) {
     }
 
     // Update a component if it has already been rendered.
-    if (activeTemplate === template) return rerender(locals)
+    if (activeTemplate === template) {
+      var component = marko.getComponentForEl(getRoot())
+      // Check to see if the component is still in the dom.
+      if (component) {
+        return rerender(component, locals)
+      }
+    }
 
     // Otherwise create a new component.
     return template.render(locals).then(function (result) {
@@ -35,11 +41,11 @@ module.exports = function markoMiddlewareSetup (template) {
 }
 
 /**
- * Rerenders an existing RenderResult.
+ * Rerenders an existing component.
+ * @param {*} component - The component to re-render.
  * @param {*} input - The new input for the component.
  */
-function rerender (input) {
-  var component = marko.getComponentForEl(getRoot())
+function rerender (component, input) {
   component.input = input
   component.___global = input.$global
   component.forceUpdate()
