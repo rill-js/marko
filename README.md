@@ -2,7 +2,7 @@
   <!-- Logo -->
   <img src="https://raw.githubusercontent.com/rill-js/rill/master/Rill-Icon.jpg" alt="Rill"/>
   <br/>
-  @rill/marko [WIP]
+  @rill/marko
 	<br/>
 
   <!-- Stability -->
@@ -29,6 +29,8 @@
 
 Universal [Marko](http://markojs.com) rendering middleware for [Rill](https://github.com/rill-js/rill).
 
+It is recommended to combine this middleware with [@rill/page](https://github.com/rill-js/page) as seen below to facilitate full page isomorphic rendering with [Marko](http://markojs.com).
+
 # Installation
 
 ```console
@@ -38,12 +40,16 @@ npm install @rill/marko
 # Example
 
 ```javascript
-const app = require('rill')()
-const page = require('@rill/page')
-const render = require('@rill/marko')
+import Rill from 'rill'
+import page from '@rill/page'
+import render from '@rill/marko'
+
+// Create a rill app.
+const app = Rill()
 
 // Setup the document template.
 app.get(page
+  .html({ lang: 'en' })
   .meta({ charset: 'utf8' })
   .title('My Marko App')
   .meta({ name: 'author', content: 'Dylan Piercey' })
@@ -52,7 +58,7 @@ app.get(page
   .script({ src: 'index.js', async: true })
 )
 
-// Set locals in middleware.
+// Set locals in middleware. (access in marko with out.global)
 app.use(({ locals }), next)=> {
 	locals.title = '@rill/marko'
 	return next()
@@ -60,7 +66,9 @@ app.use(({ locals }), next)=> {
 
 // Render a Marko template.
 const HomeTemplate = require('./home.marko')
-app.get('/home', render(HomeTemplate))
+app.get('/home', render(HomeTemplate, {
+  message: 'world'
+}))
 ```
 
 ### Contributions

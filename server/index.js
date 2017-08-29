@@ -47,12 +47,23 @@ class Readable extends stream.Readable {
  */
 module.exports = function markoMiddlewareSetup (template) {
   return function markoMiddleware (ctx) {
-    var req = ctx.req
     var res = ctx.res
     var locals = ctx.locals
-    locals.$global = { req: req, locals: locals }
+    locals.serializedGlobals = mapValuesTrue(locals)
     if (res.status === 404) res.status = 200
     res.set('Content-Type', 'text/html; charset=UTF-8')
-    res.body = new Readable(template, locals)
+    res.body = new Readable(template, { $global: locals })
   }
+}
+
+/**
+ * Converts an object to one where all values are truthy.
+ *
+ * @param {object} obj - the object to convert.
+ * @param {object} result - an object with all true values.
+ */
+function mapValuesTrue (obj) {
+  var result = {}
+  for (var key in obj) result[key] = true
+  return result
 }

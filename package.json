@@ -9,13 +9,13 @@
     "combined-stream": "^1.0.5"
   },
   "devDependencies": {
-    "jsdom": "^11.1.0",
+    "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
-    "marko": "^4.4.26",
-    "mocha": "^3.4.2",
-    "rill": "^5.0.9",
+    "marko": "^4.4.27",
+    "mocha": "^3.5.0",
+    "rill": "^5.0.15",
     "snazzy": "^7.0.0",
-    "standard": "^10.0.2",
+    "standard": "^10.0.3",
     "supertest": "^3.0.0"
   },
   "homepage": "https://github.com/rill-js/marko",
@@ -29,7 +29,7 @@
   "license": "MIT",
   "main": "server/index.js",
   "peerDependencies": {
-    "marko": "4.x"
+    "marko": ">=4.4.27"
   },
   "repository": {
     "type": "git",
@@ -37,11 +37,13 @@
   },
   "scripts": {
     "lint": "standard --verbose | snazzy",
-    "test": "npm run lint && mocha ./test/**/*.test.js"
+    "pretest": "npm run lint && node ./test/compile",
+    "test": "mocha -r jsdom-global/register ./test/**/*.test.js"
   },
   "standard": {
     "ignore": [
-      "*.marko.js"
+      "*.marko.js",
+      "test/build"
     ],
     "globals": [
       "describe",
