@@ -10,7 +10,6 @@ var root = document.body
 module.exports = function markoMiddlewareSetup (template) {
   return function markoMiddleware (ctx) {
     var res = ctx.res
-    if (res.status === 404) res.status = 200
     res.set('Content-Type', 'text/html; charset=UTF-8')
     res.body = ' '
 

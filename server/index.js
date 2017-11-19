@@ -50,7 +50,6 @@ module.exports = function markoMiddlewareSetup (template) {
     var res = ctx.res
     var locals = ctx.locals
     locals.serializedGlobals = mapValuesTrue(locals)
-    if (res.status === 404) res.status = 200
     res.set('Content-Type', 'text/html; charset=UTF-8')
     res.body = new Readable(template, { $global: locals })
   }

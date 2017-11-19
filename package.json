@@ -8,7 +8,7 @@
   "devDependencies": {
     "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
-    "marko": "^4.4.27",
+    "marko": "4.4.27",
     "mocha": "^3.5.0",
     "rill": "^5.0.15",
     "snazzy": "^7.0.0",
